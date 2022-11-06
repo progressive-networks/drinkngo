@@ -1,0 +1,4 @@
+deployment:
+    tasks:
+        - /usr/bin/npm install --legacy-peer-deps
+        - /usr/bin/npm run build
