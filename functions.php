@@ -654,3 +654,29 @@ if ( ! function_exists( 'wp_get_list_item_separator' ) ) :
 		return __( ', ', 'twentytwentyone' );
 	}
 endif;
+
+function cc_mime_types($mimes) {
+	$mimes['svg'] = 'image/svg+xml';
+	return $mimes;
+}
+add_filter('upload_mimes', 'cc_mime_types');
+
+if (!function_exists('parse_html')) {
+	function parse_html($html, $tag_name)
+	{
+		$dom = new DOMDocument;
+		$dom->loadHTML($html);
+		$attr = array();
+
+		foreach ($dom->getElementsByTagName($tag_name) as $tag) {
+			foreach ($tag->attributes as $attrName => $attrNodeVal) {
+				$attr[$attrName] = $tag->getAttribute($attrName);
+			}
+		}
+
+		return $attr;
+	}
+}
+
+// Custom module initialization.
+require get_template_directory() . '/classes/modules/modules.php';
